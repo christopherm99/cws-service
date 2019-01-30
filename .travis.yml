@@ -12,7 +12,7 @@ before_deploy:
   - npm i -g babel-eslint
   - npm i -g prettier
   - npm i -g @vue/eslint-config-prettier
-  - cd functions/; npm ci
+  - cd functions/; npm ci; cd ..
 deploy:
   provider: firebase
   skip_cleanup: true
