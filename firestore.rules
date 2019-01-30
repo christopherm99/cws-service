@@ -1,0 +1,40 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	function nameMatch(name) {
+    	return request.auth.token.email.lower().matches(name.lower() + "@commschool.org");
+    }
+    function isAdmin() {
+      return nameMatch("cmilan") || nameMatch("bdanielkebir") || nameMatch("jracioppi")
+    }
+  	match /users/{user} {
+    	// All users
+    	allow read;
+      // Owner
+      allow write: if nameMatch(user);
+      // Admins
+      allow write: if isAdmin();
+      match /events/{event} {
+      	// Owner
+      	allow read: if nameMatch(user);
+        allow write: if request.resource.data.signed != true;
+        // Admin
+        allow read, write: if isAdmin();
+      }
+    }
+    match /events/{event} {
+      // All users
+      allow read, create;
+      // Owner
+      allow write: if nameMatch(get(/databases/$(database)/documents/events/$(event)).data.author);
+      // Admins
+      allow write: if isAdmin();
+      match /who/{user} {
+      	// All users
+      	allow read;
+        allow create, delete: if nameMatch(user);
+        // Admins
+        allow write: if isAdmin();
+      }
+    }
+  }
+}
