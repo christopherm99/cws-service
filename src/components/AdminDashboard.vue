@@ -3,13 +3,29 @@
     <v-alert type="error" :value="error">
       {{ error }}
     </v-alert>
-    <v-data-table :headers="headers" :items="users">
-      <template slot="items" slot-scope="props">
-        <td>{{ props.item.dispName }}</td>
-        <td>{{ props.item.class }}</td>
-        <td>{{ props.item.hours }}</td>
-      </template>
-    </v-data-table>
+    <v-card>
+      <v-card-title class="headline">
+        Users
+        <v-spacer />
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+        />
+      </v-card-title>
+      <v-data-table :headers="headers" :items="users" :search="search">
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.dispName }}</td>
+          <td>{{ props.item.class }}</td>
+          <td>{{ props.item.hours }}</td>
+        </template>
+        <v-alert slot="no-results" :value="true" color="error" icon="warning">
+          Your search for "{{ search }}" found no results.
+        </v-alert>
+      </v-data-table>
+    </v-card>
   </v-container>
 </template>
 
@@ -36,7 +52,8 @@ export default {
         }
       ],
       users: [],
-      error: ""
+      error: "",
+      search: ""
     };
   },
   mounted() {
