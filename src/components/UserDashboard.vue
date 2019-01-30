@@ -175,7 +175,7 @@ export default {
       }
     };
   },
-  name: "Dashboard",
+  name: "UserDashboard",
   methods: {
     resetGoal() {
       this.dialog.header = "Change Service Goal";
