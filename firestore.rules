@@ -4,7 +4,7 @@ service cloud.firestore {
     	return request.auth.token.email.lower().matches(name.lower() + "@commschool.org");
     }
     function isAdmin() {
-      return nameMatch("cmilan") || nameMatch("bdanielkebir") || nameMatch("jracioppi")
+      return get(/databases/$(database)/documents/users/$(request.auth.token.email.lower()[0:request.auth.token.email.length - 16])).data.admin
     }
   	match /users/{user} {
     	// All users
