@@ -1,7 +1,9 @@
 language: node_js
 node_js: node
 script: npm run lint
-before_deploy: npm i -g eslint
+before_deploy: 
+  - npm i -g eslint
+  - npm i -g eslint-plugin-promise
 deploy:
   provider: firebase
   skip_cleanup: true
