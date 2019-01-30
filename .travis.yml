@@ -1,7 +1,7 @@
 language: node_js
 node_js: node
-install: npm i
 script: npm run lint
+before_deploy: npm i -g eslint
 deploy:
   provider: firebase
   skip_cleanup: true
