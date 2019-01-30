@@ -7,6 +7,7 @@ before_deploy:
   - npm i -g eslint-plugin-prettier
   - npm i -g eslint-plugin-vue
   - npm i -g babel-eslint
+  - npm i -g prettier
   - npm i -g @vue/eslint-config-prettier
 deploy:
   provider: firebase
