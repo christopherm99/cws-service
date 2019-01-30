@@ -1,6 +1,9 @@
 language: node_js
 node_js: node
 script: npm run lint
+cache:
+  directories:
+  - "$HOME/.npm"
 before_deploy: 
   - npm i -g eslint
   - npm i -g eslint-plugin-promise
@@ -9,7 +12,7 @@ before_deploy:
   - npm i -g babel-eslint
   - npm i -g prettier
   - npm i -g @vue/eslint-config-prettier
-  - npm i functions/
+  - cd functions/; npm ci
 deploy:
   provider: firebase
   skip_cleanup: true
