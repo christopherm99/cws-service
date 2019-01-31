@@ -52,11 +52,7 @@ export default {
   },
   mounted() {
     auth.onAuthStateChanged(user => {
-      if (user) {
-        this.signedIn = true;
-      } else {
-        this.signedIn = false;
-      }
+      user ? (this.signedIn = true) : (this.signedIn = false);
     });
   }
 };
