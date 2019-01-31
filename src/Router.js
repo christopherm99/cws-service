@@ -126,4 +126,8 @@ const router = new Router({
   ]
 });
 
+router.onError(() => {
+  router.push("/");
+});
+
 export default router;
