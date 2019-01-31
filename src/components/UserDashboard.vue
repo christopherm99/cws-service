@@ -280,14 +280,15 @@ export default {
         {
           func: () => {
             this.dialog.actions[1].loading = true;
-            auth.currentUser
-              .updateProfile({
+            userCol
+              .doc(this.username)
+              .update({
                 displayName: this.dialog.result
               })
               .then(() => {
                 this.dialog.actions[1].loading = false;
                 this.cleanDialog();
-                this.displayName = auth.currentUser.displayName;
+                this.displayName = this.dialog.result;
                 return;
               })
               .catch(error => {
@@ -369,11 +370,11 @@ export default {
     setTimeout(() => {
       let email = auth.currentUser.email;
       this.username = email.substring(0, email.lastIndexOf("@"));
-      this.displayName = auth.currentUser.displayName;
       userCol.doc(this.username.toLowerCase()).onSnapshot(
         doc => {
           this.user = doc.data();
           this.progress = (this.user.hours / this.user.goal) * 100;
+          this.displayName = this.user.displayName;
         },
         error => {
           this.error = error;

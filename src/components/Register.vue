@@ -97,11 +97,9 @@ export default {
           .doc(email.substring(0, email.lastIndexOf("@")))
           .update({
             class: this.grade,
-            goal: this.goal
+            goal: this.goal,
+            displayName: this.displayName
           });
-        auth.currentUser.updateProfile({
-          displayName: this.displayName
-        });
       }
     },
     sendEmail() {

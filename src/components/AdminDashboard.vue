@@ -62,7 +62,7 @@
       <v-data-table :headers="headers" :items="users" :search="search">
         <template slot="items" slot-scope="props">
           <tr @click="userDiag(props.item)">
-            <td>{{ props.item.dispName }}</td>
+            <td>{{ props.item.displayName }}</td>
             <td>{{ props.item.class }}</td>
             <td>{{ props.item.hours }}</td>
           </tr>
@@ -103,7 +103,7 @@ export default {
       headers: [
         {
           text: "Student",
-          value: "dispName"
+          value: "displayName"
         },
         {
           text: "Graduation Year",
@@ -145,9 +145,9 @@ export default {
   },
   methods: {
     userDiag(user) {
-      this.dialog.header = user.dispName + ": verified events";
+      this.dialog.header = user.displayName + ": verified events";
       usersCol
-        .doc(user.dispName)
+        .doc(user.displayName)
         .collection("events")
         .get()
         .then(col => {
@@ -204,7 +204,6 @@ export default {
         col.forEach(doc => {
           this.users = [];
           let retrieved = doc.data();
-          retrieved.dispName = doc.id;
           this.users.push(retrieved);
         });
         this.allUsers = this.users;
