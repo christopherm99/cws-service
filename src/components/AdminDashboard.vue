@@ -33,8 +33,23 @@
       </v-card>
     </v-dialog>
     <v-card>
-      <v-card-title class="headline">
+      <v-card-title>
         Users
+        <v-spacer />
+        <v-btn-toggle v-model="class_filter" multiple @change="updateFilter()">
+          <v-btn flat>
+            Seniors
+          </v-btn>
+          <v-btn flat>
+            Juniors
+          </v-btn>
+          <v-btn flat>
+            Sophomores
+          </v-btn>
+          <v-btn flat>
+            Freshmen
+          </v-btn>
+        </v-btn-toggle>
         <v-spacer />
         <v-text-field
           v-model="search"
@@ -99,6 +114,7 @@ export default {
           value: "hours"
         }
       ],
+      allUsers: [],
       users: [],
       dialog: {
         header: "",
@@ -123,7 +139,8 @@ export default {
         enabled: false
       },
       error: "",
-      search: ""
+      search: "",
+      class_filter: []
     };
   },
   methods: {
@@ -167,6 +184,18 @@ export default {
         error: "",
         enabled: false
       };
+    },
+    updateFilter() {
+      this.users = [];
+      this.class_filter.length == 0
+        ? (this.users = this.allUsers)
+        : this.class_filter.forEach(grade => {
+            this.users.push(
+              ...this.allUsers.filter(user => {
+                return user.class == grade + 2019;
+              })
+            );
+          });
     }
   },
   mounted() {
@@ -178,6 +207,7 @@ export default {
           retrieved.dispName = doc.id;
           this.users.push(retrieved);
         });
+        this.allUsers = this.users;
       },
       error => {
         this.error = error.message;
