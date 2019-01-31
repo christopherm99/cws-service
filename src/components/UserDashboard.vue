@@ -142,14 +142,13 @@
   </v-container>
 </template>
 <script>
-// import router from "../router";
-import { db, auth } from "../firebaseConfig";
+import { db, auth } from "../FirebaseConfig";
 
-var userCol = db.collection("/users");
-var eventCol = db.collection("/events");
+let userCol = db.collection("/users");
+let eventCol = db.collection("/events");
 
 function toDate(seconds) {
-  var t = new Date(1970, 0, 1);
+  let t = new Date(1970, 0, 1);
   t.setSeconds(seconds);
   return t;
 }
@@ -204,15 +203,14 @@ export default {
               .update({
                 goal: this.dialog.result
               })
-              .then(
-                () => {
-                  this.cleanDialog();
-                },
-                error => {
-                  this.dialog.error = error;
-                  this.actions[1].loading = false;
-                }
-              );
+              .then(() => {
+                this.cleanDialog();
+                return;
+              })
+              .catch(error => {
+                this.dialog.error = error;
+                this.actions[1].loading = false;
+              });
           }
         }
       );
@@ -243,15 +241,14 @@ export default {
               .update({
                 class: this.dialog.result
               })
-              .then(
-                () => {
-                  this.cleanDialog();
-                },
-                error => {
-                  this.dialog.error = error;
-                  this.dialog.actions[1].loading = false;
-                }
-              );
+              .then(() => {
+                this.cleanDialog();
+                return;
+              })
+              .catch(error => {
+                this.dialog.error = error;
+                this.dialog.actions[1].loading = false;
+              });
           },
           btn: "Submit",
           flat: false,
@@ -287,17 +284,16 @@ export default {
               .updateProfile({
                 displayName: this.dialog.result
               })
-              .then(
-                () => {
-                  this.dialog.actions[1].loading = false;
-                  this.cleanDialog();
-                  this.displayName = auth.currentUser.displayName;
-                },
-                error => {
-                  this.dialog.actions[1].loading = false;
-                  this.error = error;
-                }
-              );
+              .then(() => {
+                this.dialog.actions[1].loading = false;
+                this.cleanDialog();
+                this.displayName = auth.currentUser.displayName;
+                return;
+              })
+              .catch(error => {
+                this.dialog.actions[1].loading = false;
+                this.error = error;
+              });
           },
           btn: "Submit",
           flat: false,
@@ -408,7 +404,7 @@ export default {
           this.error = error;
         }
       );
-    }, 1000);
+    }, 1e3);
   }
 };
 </script>

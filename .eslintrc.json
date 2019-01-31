@@ -4,11 +4,23 @@
     "node": true,
     "browser": true
   },
+  "plugins": [
+    "promise",
+    "sonarjs",
+    "unicorn"
+  ],
   "extends": [
     "plugin:vue/essential",
-    "@vue/prettier"
+    "@vue/prettier",
+    "plugin:promise/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/recommended"
   ],
-  "rules": {},
+  "rules": {
+    "unicorn/filename-case": "off",
+    "promise/no-callback-in-promise": "off",
+    "promise/no-nesting": "off"
+  },
   "parserOptions": {
     "parser": "babel-eslint"
   }

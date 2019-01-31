@@ -68,8 +68,8 @@
   </v-container>
 </template>
 <script>
-import router from "../router";
-import { db, auth } from "../firebaseConfig";
+import router from "../Router";
+import { db, auth } from "../FirebaseConfig";
 
 export default {
   data() {
@@ -106,10 +106,14 @@ export default {
     },
     sendEmail() {
       this.sending = true;
-      auth.currentUser.sendEmailVerification().then(() => {
-        this.sending = false;
-        this.dialog = false;
-      });
+      auth.currentUser
+        .sendEmailVerification()
+        .then(() => {
+          this.sending = false;
+          this.dialog = false;
+          return;
+        })
+        .catch(error => (this.error = error));
     },
     cancel() {
       router.push("/login");

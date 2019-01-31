@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import { db } from "../firebaseConfig";
+import { db } from "../FirebaseConfig";
 
-var eventCol = db.collection("/events");
+let eventCol = db.collection("/events");
 
 export default {
   data() {
@@ -52,7 +52,7 @@ export default {
     };
   },
   mounted() {
-    eventCol.where("when", ">", Date()).onSnapshot(
+    eventCol.where("when", ">", new Date()).onSnapshot(
       col => {
         this.events = [];
         col.forEach(doc => {

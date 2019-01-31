@@ -6,9 +6,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --modern",
     "test": "npm run lint && npm run build",
-    "lint": "vue-cli-service lint src functions"
+    "lint": "vue-cli-service lint src"
   },
   "dependencies": {
+    "eslint-plugin-fp": "^2.3.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-sonarjs": "^0.2.0",
+    "eslint-plugin-unicorn": "^7.1.0",
     "firebase": "^5.8.1",
     "vue": "^2.5.22",
     "vue-router": "^3.0.2",

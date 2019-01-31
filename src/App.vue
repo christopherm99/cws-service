@@ -27,8 +27,8 @@
   </div>
 </template>
 <script>
-import { auth } from "./firebaseConfig";
-import router from "./router";
+import { auth } from "./FirebaseConfig";
+import router from "./Router";
 
 export default {
   data: () => {

@@ -38,8 +38,8 @@
   </v-container>
 </template>
 <script>
-import router from "../router";
-import { auth } from "../firebaseConfig";
+import router from "../Router";
+import { auth } from "../FirebaseConfig";
 
 export default {
   data: () => {
@@ -54,24 +54,28 @@ export default {
     login() {
       auth
         .signInWithEmailAndPassword(this.email, this.password)
-        .catch(error => {
-          this.error = error.message;
-        })
         .then(value => {
           if (value) {
             router.push("/dashboard");
+            return;
           }
+          return;
+        })
+        .catch(error => {
+          this.error = error.message;
         });
     },
     register() {
-      auth.createUserWithEmailAndPassword(this.email, this.password).then(
-        () => {
+      auth
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(() => {
           router.push("/register");
-        },
-        error => {
+          return;
+        })
+        .catch(error => {
           this.error = error.message;
-        }
-      );
+          return;
+        });
     },
     forgot() {
       auth.sendPasswordResetEmail(this.email).catch(error => {

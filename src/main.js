@@ -4,10 +4,10 @@ import Vuetify from "vuetify";
 
 import colors from "vuetify/es5/util/colors";
 
-import "./firebaseConfig";
+import "./FirebaseConfig";
 import "./assets/stylus/main.styl";
 import "./plugins/vuetify";
-import router from "./router";
+import router from "./Router";
 
 Vue.config.productionTip = false;
 
