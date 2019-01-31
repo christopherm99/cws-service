@@ -173,6 +173,7 @@ export default {
     usersCol.onSnapshot(
       col => {
         col.forEach(doc => {
+          this.users = [];
           let retrieved = doc.data();
           retrieved.dispName = doc.id;
           this.users.push(retrieved);
