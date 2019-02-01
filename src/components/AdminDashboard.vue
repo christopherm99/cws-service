@@ -59,7 +59,12 @@
           hide-details
         />
       </v-card-title>
-      <v-data-table :headers="headers" :items="users" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        :search="search"
+        hide-actions
+      >
         <template slot="items" slot-scope="props">
           <tr @click="userDiag(props.item)">
             <td>{{ props.item.displayName }}</td>
