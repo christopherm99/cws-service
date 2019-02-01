@@ -305,7 +305,39 @@ export default {
 
       this.dialog.enabled = true;
     },
-    resetPassword() {},
+    resetPassword() {
+      this.dialog.header = "Reset Password";
+
+      this.dialog.actions.push(
+        {
+          func: this.cleanDialog,
+          btn: "Cancel",
+          flat: true,
+          outline: false
+        },
+        {
+          func: () => {
+            this.dialog.actions[1].loading = true;
+            auth
+              .sendPasswordResetEmail(auth.currentUser.email)
+              .then(() => {
+                this.dialog.actions[1].loading = false;
+                this.cleanDialog();
+                return;
+              })
+              .catch(error => {
+                this.dialog.actions[1].loading = false;
+                this.error = error;
+              });
+          },
+          btn: "Send Email",
+          flat: false,
+          outline: true
+        }
+      );
+
+      this.dialog.enabled = true;
+    },
     moreInfo(item) {
       this.dialog.header = item.provider;
 
