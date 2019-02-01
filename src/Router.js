@@ -1,12 +1,13 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import Login from "./components/Login";
-import UserDashboard from "./components/UserDashboard";
-import AdminDashboard from "./components/AdminDashboard";
-import Register from "./components/Register";
-import Home from "./components/Home";
-import Events from "./components/Events";
+const Home = () => import("./components/Home");
+const Login = () => import("./components/Login");
+const Register = () => import("./components/Register");
+
+const UserDashboard = () => import("./components/UserDashboard");
+const AdminDashboard = () => import("./components/AdminDashboard");
+const Events = () => import("./components/Events");
 
 import { auth, db } from "./FirebaseConfig";
 
