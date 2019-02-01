@@ -107,11 +107,12 @@
           </v-toolbar>
           <v-list two-line subheader>
             <template v-for="(item, index) in pastEvents">
-              <v-list-tile :key="index" @click="moreInfo(item)">
+              <v-list-tile :key="index" @click="moreInfo(item)" avatar>
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.provider }}</v-list-tile-title>
                   <v-list-tile-sub-title>{{ item.desc }}</v-list-tile-sub-title>
                 </v-list-tile-content>
+                <v-list-tile-avatar>{{ item.hours }} hours</v-list-tile-avatar>
               </v-list-tile>
             </template>
           </v-list>
@@ -127,8 +128,11 @@
               <v-list-tile :key="index" @click="moreInfo(item)">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.provider }}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ item.desc }}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>
+                    {{ item.message }}
+                  </v-list-tile-sub-title>
                 </v-list-tile-content>
+                <v-list-tile-avatar>{{ item.hours }} hours</v-list-tile-avatar>
               </v-list-tile>
             </template>
           </v-list>
