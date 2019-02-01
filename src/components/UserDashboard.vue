@@ -406,6 +406,7 @@ export default {
     setTimeout(() => {
       let email = auth.currentUser.email;
       this.username = email.substring(0, email.lastIndexOf("@"));
+      // User data polling:
       userCol.doc(this.username.toLowerCase()).onSnapshot(
         doc => {
           this.user = doc.data();
@@ -416,9 +417,12 @@ export default {
           this.error = error;
         }
       );
+      // User events polling:
       userCol
         .doc(this.username.toLowerCase())
         .collection("events")
+        .orderBy("when", "desc")
+        .limit(5)
         .onSnapshot(
           col => {
             this.pastEvents = [];
@@ -430,17 +434,21 @@ export default {
             this.error = error;
           }
         );
-      eventCol.onSnapshot(
-        col => {
-          this.invitations = [];
-          col.forEach(doc => {
-            this.invitations.push(doc.data());
-          });
-        },
-        error => {
-          this.error = error;
-        }
-      );
+      // Global events polling:
+      eventCol
+        .orderBy("when")
+        .limit(5)
+        .onSnapshot(
+          col => {
+            this.invitations = [];
+            col.forEach(doc => {
+              this.invitations.push(doc.data());
+            });
+          },
+          error => {
+            this.error = error;
+          }
+        );
     }, 1e3);
   }
 };
