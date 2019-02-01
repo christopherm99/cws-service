@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xl fluid>
     <v-layout :column="$vuetify.breakpoint.smAndDown">
-      <v-dialog max-width="500" v-model="dialog.enabled">
+      <v-dialog max-width="500" v-model="dialog.enabled" persistent>
         <v-card>
           <v-card-title primary-title class="headline">
             {{ dialog.header }}
