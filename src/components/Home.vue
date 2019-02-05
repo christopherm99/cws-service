@@ -8,8 +8,8 @@
       </v-toolbar>
       <v-card-text>
         You have reached the home page of the Commonwealth School's community
-        service website. To log in to you account, please click the login button
-        at the top left.
+        service website. To log in to your account, please click the login
+        button at the top left.
       </v-card-text>
     </v-card>
   </v-container>
