@@ -10,13 +10,13 @@ service cloud.firestore {
     	// All users
     	allow read;
       // Owner
-      allow write: if nameMatch(user);
+      allow write: if request.resource.data.admin != true && nameMatch(user);
       // Admins
       allow write: if isAdmin();
       match /events/{event} {
       	// Owner
       	allow read: if nameMatch(user);
-        allow write: if request.resource.data.signed != true;
+        allow write: if request.resource.data.signed != true && nameMatch(user);
         // Admin
         allow read, write: if isAdmin();
       }
