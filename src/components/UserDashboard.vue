@@ -678,6 +678,135 @@ export default {
 
       this.dialog.enabled = true;
     },
+    addGlobalEvent() {
+      this.dialog.header = "New Event";
+
+      this.dialog.info = "steps";
+      this.dialog.result = {};
+      this.dialog.msg.push(
+        {
+          header: "Enter Event Information",
+          inputs: [
+            {
+              isTime: false,
+              label: "Community Service Organization",
+              hint: "eg. World Computer Exchange",
+              type: "text",
+              result: "provider",
+              required: true
+            },
+            {
+              isTime: false,
+              label: "Supervisor's Email",
+              hint: "eg. example@example.com",
+              type: "text",
+              result: "supervisor",
+              required: true,
+              errors: [isEmail]
+            },
+            {
+              isTime: false,
+              label: "Short Description",
+              hint:
+                "eg. Refurbish old computers for youth in developing countries",
+              type: "text",
+              result: "desc",
+              required: true,
+              errors: [underLength(250)]
+            },
+            {
+              isTime: false,
+              label: "Short Message",
+              hint: "A message to those invited to this event",
+              type: "text",
+              result: "mesg",
+              required: true,
+              errors: [underLength(250)]
+            }
+          ]
+        },
+        {
+          header: "Select Time of Event",
+          inputs: [
+            {
+              isTime: true,
+              dateLabel: "Date of event",
+              timeLabel: "Time of event",
+              dateMenu: false,
+              timeMenu: false,
+              dateResult: "date",
+              timeResult: "time"
+            },
+            {
+              isTime: false,
+              label: "Event Duration in hours",
+              hint: "eg. 5. Use a decimal approximation if neccessary.",
+              type: "number",
+              result: "hours",
+              required: true,
+              errors: [isDecimal]
+            }
+          ]
+        }
+      );
+
+      this.dialog.actions.push(
+        {
+          func: this.cleanDialog,
+          btn() {
+            return "Cancel";
+          },
+          flat: true,
+          outline: false
+        },
+        {
+          func: () => {
+            if (this.dialog.step == this.dialog.msg.length) {
+              if (
+                this.$refs.formStep1[0].validate() &&
+                this.$refs.formStep0[0].validate()
+              ) {
+                this.dialog.actions[1].loading = true;
+                eventCol
+                  .add({
+                    desc: this.dialog.result.desc,
+                    hours: this.dialog.result.hours,
+                    provider: this.dialog.result.provider,
+                    supervisor: this.dialog.result.supervisor,
+                    when: new Date(
+                      `${this.dialog.result.date} ${this.dialog.result.time}`
+                    ),
+                    message: this.dialog.result.mesg,
+                    author: this.username
+                  })
+                  .then(() => {
+                    this.cleanDialog();
+                    return;
+                  })
+                  .catch(error => {
+                    this.dialog.actions[1].loading = false;
+                    this.dialog.error = error;
+                  });
+              }
+            } else {
+              if (this.$refs.formStep0[0].validate()) {
+                this.dialog.step++;
+              }
+            }
+          },
+          // eslint-disable-next-line sonarjs/no-identical-functions
+          btn: () => {
+            return this.dialog.step == this.dialog.msg.length
+              ? "Submit"
+              : "Next";
+          },
+          flat: true,
+          outline: false
+        }
+      );
+
+      this.dialog.enabled = true;
+    },
     cleanDialog() {
       this.dialog = {
         header: "",
