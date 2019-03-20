@@ -3,7 +3,7 @@
     <v-alert type="error" :value="error">
       {{ error }}
     </v-alert>
-    <v-dialog max-width="500" v-model="dialog.enabled">
+    <v-dialog v-model="dialog.enabled" max-width="500">
       <v-card>
         <v-card-title primary-title class="headline">
           {{ dialog.header }}
@@ -148,6 +148,21 @@ export default {
       class_filter: []
     };
   },
+  mounted() {
+    usersCol.onSnapshot(
+      col => {
+        col.forEach(doc => {
+          this.users = [];
+          let retrieved = doc.data();
+          this.users.push(retrieved);
+        });
+        this.allUsers = this.users;
+      },
+      error => {
+        this.error = error.message;
+      }
+    );
+  },
   methods: {
     userDiag(user) {
       this.dialog.header = user.displayName + ": verified events";
@@ -202,21 +217,6 @@ export default {
             );
           });
     }
-  },
-  mounted() {
-    usersCol.onSnapshot(
-      col => {
-        col.forEach(doc => {
-          this.users = [];
-          let retrieved = doc.data();
-          this.users.push(retrieved);
-        });
-        this.allUsers = this.users;
-      },
-      error => {
-        this.error = error.message;
-      }
-    );
   }
 };
 </script>

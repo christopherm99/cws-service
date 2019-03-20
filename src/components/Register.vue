@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-dialog max-width="500" persistent v-model="dialog">
+      <v-dialog v-model="dialog" max-width="500" persistent>
         <v-card>
           <v-card-title primary-title class="headline">
             Email Verification
@@ -35,27 +35,27 @@
             {{ error }}
           </v-alert>
           <v-text-field
+            v-model="grade"
             prepend-icon="school"
             label="Year of Graduation"
             type="number"
             mask="####"
-            v-model="grade"
             color="accent"
           />
           <v-text-field
+            v-model="goal"
             prepend-icon="access_time"
             label="Service Goal"
             hint="Your community service goal in hours"
             type="number"
             mask="##"
-            v-model="goal"
             color="accent"
           />
           <v-text-field
+            v-model="displayName"
             prepend-icon="person"
             label="Display Name"
             hint="eg. John Doe"
-            v-model="displayName"
             color="accent"
           />
         </v-form>
@@ -82,6 +82,12 @@ export default {
       sending: false,
       msg: ""
     };
+  },
+  mounted() {
+    if (!auth.currentUser.emailVerified) {
+      this.msg = "You must first verify your email before you can log in.";
+      this.dialog = true;
+    }
   },
   methods: {
     register() {
@@ -115,12 +121,6 @@ export default {
     },
     cancel() {
       router.push("/login");
-    }
-  },
-  mounted() {
-    if (!auth.currentUser.emailVerified) {
-      this.msg = "You must first verify your email before you can log in.";
-      this.dialog = true;
     }
   }
 };

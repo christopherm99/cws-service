@@ -6,18 +6,18 @@
         <v-spacer />
         <v-toolbar-items>
           <v-btn
-            color="white"
             v-if="notDash"
+            color="white"
             flat
             :to="'/dashboard'"
             class="hidden-sm-and-down"
           >
             Dashboard
           </v-btn>
-          <v-btn color="white" v-if="signedIn && notHome" flat @click="logout">
+          <v-btn v-if="signedIn && notHome" color="white" flat @click="logout">
             Logout
           </v-btn>
-          <v-btn color="white" v-else flat :to="'/login'">Login</v-btn>
+          <v-btn v-else color="white" flat :to="'/login'">Login</v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-content id="router">
@@ -38,12 +38,6 @@ export default {
       notHome: true
     };
   },
-  methods: {
-    logout() {
-      auth.signOut();
-      router.push("/login");
-    }
-  },
   watch: {
     $route(to) {
       this.notDash = to.path != "/dashboard";
@@ -54,6 +48,12 @@ export default {
     auth.onAuthStateChanged(user => {
       user ? (this.signedIn = true) : (this.signedIn = false);
     });
+  },
+  methods: {
+    logout() {
+      auth.signOut();
+      router.push("/login");
+    }
   }
 };
 </script>

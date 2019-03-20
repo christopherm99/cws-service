@@ -12,19 +12,19 @@
             </v-alert>
           </v-expand-transition>
           <v-text-field
+            v-model="email"
             prepend-icon="person"
             color="accent"
             label="Email"
             type="email"
             hint="Use your commschool.org email"
-            v-model="email"
           ></v-text-field>
           <v-text-field
+            v-model="password"
             prepend-icon="lock"
             color="accent"
             label="Password"
             type="password"
-            v-model="password"
           ></v-text-field>
         </v-form>
       </v-card-text>
@@ -42,6 +42,7 @@ import router from "../Router";
 import { auth } from "../FirebaseConfig";
 
 export default {
+  name: "Login",
   data: () => {
     return {
       email: "",
@@ -49,7 +50,6 @@ export default {
       error: ""
     };
   },
-  name: "Login",
   methods: {
     login() {
       auth

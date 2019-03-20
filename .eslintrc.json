@@ -10,7 +10,7 @@
     "unicorn"
   ],
   "extends": [
-    "plugin:vue/essential",
+    "plugin:vue/recommended",
     "@vue/prettier",
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
