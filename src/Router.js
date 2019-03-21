@@ -7,7 +7,8 @@ const Register = () => import("./components/Register");
 
 const UserDashboard = () => import("./components/UserDashboard");
 const AdminDashboard = () => import("./components/AdminDashboard");
-const Events = () => import("./components/Events");
+const UserEvents = () => import("./components/UserEvents");
+const GlobalEvents = () => import("./components/GlobalEvents");
 
 import { auth, db } from "./FirebaseConfig";
 
@@ -120,8 +121,13 @@ const router = new Router({
       beforeEnter: testOnlyAuth
     },
     {
-      path: "/events",
-      component: Events,
+      path: "/events/user",
+      component: UserEvents,
+      beforeEnter: testAuth
+    },
+    {
+      path: "/events/global",
+      component: GlobalEvents,
       beforeEnter: testAuth
     }
   ]

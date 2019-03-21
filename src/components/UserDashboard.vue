@@ -203,7 +203,7 @@
           </v-list>
           <v-card-actions>
             <v-spacer />
-            <v-btn flat color="accent" :to="'/events'">More Details</v-btn>
+            <v-btn flat color="accent" to="/events/user">More Details</v-btn>
             <v-btn outline color="accent" @click="addUserEvent()">
               Add Event
             </v-btn>
@@ -230,7 +230,7 @@
           </v-list>
           <v-card-actions>
             <v-spacer />
-            <v-btn flat color="accent" :to="'/events'">More Details</v-btn>
+            <v-btn flat color="accent" to="/events/global">More Details</v-btn>
             <v-btn outline color="accent" @click="addGlobalEvent()">
               Publish Event
             </v-btn>
@@ -279,9 +279,9 @@ export default {
   mounted() {
     setTimeout(() => {
       let email = auth.currentUser.email;
-      this.username = email.substring(0, email.lastIndexOf("@"));
+      this.username = email.substring(0, email.lastIndexOf("@")).toLowerCase();
       // User data polling:
-      userCol.doc(this.username.toLowerCase()).onSnapshot(
+      userCol.doc(this.username).onSnapshot(
         doc => {
           this.user = doc.data();
           this.progress = (this.user.hours / this.user.goal) * 100;
@@ -293,7 +293,7 @@ export default {
       );
       // User events polling:
       userCol
-        .doc(this.username.toLowerCase())
+        .doc(this.username)
         .collection("events")
         .orderBy("when", "desc")
         .limit(5)
