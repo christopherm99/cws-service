@@ -31,7 +31,7 @@ service cloud.firestore {
       match /who/{user} {
       	// All users
       	allow read;
-        allow create, delete: if nameMatch(user);
+        allow write, create, delete: if nameMatch(user);
         // Admins
         allow write: if isAdmin();
       }
