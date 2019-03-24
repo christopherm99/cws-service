@@ -34,7 +34,7 @@ exports.incrementHours = functions.firestore
         console.log(
           `User ${ctx.params.username} currently has ${hours} hours logged.`
         );
-        console.log(`This event will add ${snap.data.hours} more hours`);
+        console.log(`This event will add ${snap.data().hours} more hours`);
         return userdoc.update({
           hours: hours + snap.data.hours
         });
