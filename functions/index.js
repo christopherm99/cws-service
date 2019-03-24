@@ -46,6 +46,37 @@ exports.incrementHours = functions.firestore
       });
   });
 
+exports.decrementHours = functions.firestore
+  .document("users/{username}/events/{eventID}")
+  .onDelete((snap, ctx) => {
+    console.log(
+      `User ${ctx.params.username} deleted an event: ${ctx.params.eventID}`
+    );
+    let userdoc = snap.ref.parent.parent;
+    return userdoc
+      .get()
+      .then(doc => {
+        let hours = doc.data().hours;
+        if (!hours) {
+          console.error(`Cannot retrieve user's current hours`);
+          throw new Error(
+            "Trying to delete an event, while user has 0 hours logged"
+          );
+        }
+        console.log(
+          `User ${ctx.params.username} currently has ${hours} hours logged.`
+        );
+        console.log(`This event will subtract ${snap.data().hours} hours`);
+        return userdoc.update({
+          hours: hours - snap.data().hours
+        });
+      })
+      .catch(error => {
+        console.error(`Cannot retrieve user's current hours: ${error}`);
+        throw error;
+      });
+  });
+
 exports.addUserEvent = functions.firestore
   .document("events/{eventID}/who/{username}")
   .onCreate((snap, ctx) => {
