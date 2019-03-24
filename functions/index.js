@@ -36,7 +36,7 @@ exports.incrementHours = functions.firestore
         );
         console.log(`This event will add ${snap.data().hours} more hours`);
         return userdoc.update({
-          hours: hours + snap.data.hours
+          hours: hours + snap.data().hours
         });
       })
       .catch(error => {
