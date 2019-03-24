@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 "use strict";
 
 const functions = require("firebase-functions");
@@ -43,6 +44,46 @@ exports.incrementHours = functions.firestore
         console.error(`Cannot retrieve user's current hours: ${error}`);
         throw error;
       });
+  });
+
+exports.addUserEvent = functions.firestore
+  .document("events/{eventID}/who/{username}")
+  .onCreate((snap, ctx) => {
+    console.log(
+      `Adding user-scoped event for ${ctx.params.username} from global event ${
+        ctx.params.eventID
+      }.`
+    );
+    let globaldoc = snap.ref.parent.parent;
+    let localdoc = admin
+      .firestore()
+      .doc(`users/${ctx.parmams.username}/events${globaldoc.id}`);
+    return globaldoc.get().then(globalsnap => {
+      let snapdata = globalsnap.data();
+      return localdoc.set({
+        desc: snapdata.desc,
+        hours: snapdata.hours,
+        provider: snapdata.provider,
+        supervisor: snapdata.supervisor,
+        when: snapdata.when,
+        signed: true
+      });
+    });
+  });
+
+exports.delUserEvent = functions.firestore
+  .document("events/{eventID}/who/{username}")
+  .onDelete((snap, ctx) => {
+    console.log(
+      `Removing user-scoped event for ${
+        ctx.params.username
+      } from global event ${ctx.params.eventID}.`
+    );
+    let globaldoc = snap.ref.parent.parent;
+    let localdoc = admin
+      .firestore()
+      .doc(`users/${ctx.parmams.username}/events${globaldoc.id}`);
+    return localdoc.delete();
   });
 
 function sendEmail(email, subject, text) {
