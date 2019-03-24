@@ -1,0 +1,30 @@
+[debug] [2019-03-24T02:17:10.857Z] ----------------------------------------------------------------------
+[debug] [2019-03-24T02:17:10.859Z] Command:       /usr/bin/node /usr/bin/firebase functions:shell
+[debug] [2019-03-24T02:17:10.859Z] CLI Version:   6.5.0
+[debug] [2019-03-24T02:17:10.859Z] Platform:      linux
+[debug] [2019-03-24T02:17:10.859Z] Node Version:  v11.12.0
+[debug] [2019-03-24T02:17:10.859Z] Time:          Sat Mar 23 2019 22:17:10 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-03-24T02:17:10.859Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-03-24T02:17:10.864Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-03-24T02:17:10.864Z] > authorizing via signed-in user
+[debug] [2019-03-24T02:17:10.864Z] [iam] checking project cws-service for permissions ["firebase.projects.get"]
+[debug] [2019-03-24T02:17:10.865Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-03-24T02:17:10.866Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-03-24T02:17:14.499Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-24T02:17:14.505Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/cws-service:testIamPermissions  
+
+[debug] [2019-03-24T02:17:17.980Z] <<< HTTP RESPONSE 200
+[info] i  functions: Preparing to emulate functions.
+[debug] [2019-03-24T02:17:18.586Z] Fetching environment
+[debug] [2019-03-24T02:17:18.587Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/cws-service  
+ 
+[debug] [2019-03-24T02:17:20.232Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-24T02:17:20.233Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1015278500615:getServerAppConfig  
+ 
+[debug] [2019-03-24T02:17:23.509Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-24T02:17:23.510Z] Starting @google-cloud/functions-emulator
+[debug] [2019-03-24T02:17:24.555Z] Parsing function triggers
+[debug] [2019-03-24T02:17:24.786Z] Deploying functions locally
+[info] ✔  functions: incrementHours
