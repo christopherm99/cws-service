@@ -101,11 +101,14 @@ export default {
         let email = auth.currentUser.email;
         db.collection("users")
           .doc(email.substring(0, email.lastIndexOf("@")))
-          .update({
-            class: this.grade,
-            goal: this.goal,
-            displayName: this.displayName
-          });
+          .set(
+            {
+              class: this.grade,
+              goal: this.goal,
+              displayName: this.displayName
+            },
+            { merge: true }
+          );
       }
     },
     sendEmail() {
