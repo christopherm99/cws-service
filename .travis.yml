@@ -1,6 +1,10 @@
 language: node_js
 node_js: node
 cache: npm
+before_deploy:
+  - "cd functions"
+  - "npm ci"
+  - "cd .."
 deploy:
   provider: firebase
   skip_cleanup: true
