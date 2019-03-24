@@ -643,7 +643,7 @@ export default {
                   .collection("events")
                   .add({
                     desc: this.dialog.result.desc,
-                    hours: this.dialog.result.hours,
+                    hours: parseInt(this.dialog.result.hours),
                     provider: this.dialog.result.provider,
                     signed: false,
                     supervisor: this.dialog.result.supervisor,
@@ -770,7 +770,7 @@ export default {
                 eventCol
                   .add({
                     desc: this.dialog.result.desc,
-                    hours: this.dialog.result.hours,
+                    hours: parseInt(this.dialog.result.hours),
                     provider: this.dialog.result.provider,
                     supervisor: this.dialog.result.supervisor,
                     when: new Date(
